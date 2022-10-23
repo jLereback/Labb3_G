@@ -9,11 +9,6 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.paint.Color;
 
 public class Model {
-
-
-
-
-
     String[] shapeList = { "Circle", "Rectangle"};
     private ObservableList<String> shapes = FXCollections.observableArrayList(shapeList);
     private final ObjectProperty<Color> color;

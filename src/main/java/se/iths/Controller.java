@@ -26,7 +26,7 @@ public class Controller {
 
     public void initialize() {
         context = paintingArea.getGraphicsContext2D();
-        context.setFill(Color.web("#eddeaf"));
+        context.setFill(Color.web("#edece0"));
         context.fillRect(0, 0, paintingArea.getWidth(), paintingArea.getHeight());
         colorPicker.valueProperty().bindBidirectional(model.colorProperty());
         shapeType.setValue("Choose shape");
