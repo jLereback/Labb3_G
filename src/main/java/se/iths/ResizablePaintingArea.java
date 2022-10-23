@@ -22,8 +22,7 @@ public class ResizablePaintingArea extends Canvas {
      * @see #maxHeight(double)
      *
      * @return orientation of width/height dependency or null if there is none
-     *
-     *
+
      * #resize(double, double)
      * Invoked by the region's parent during layout to set the region's width and height.
      * Applications should not invoke this method directly.

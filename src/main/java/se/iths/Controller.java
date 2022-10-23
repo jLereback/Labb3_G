@@ -1,5 +1,9 @@
 package se.iths;
 
+import javafx.beans.property.Property;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -18,6 +22,8 @@ public class Controller {
 
     public GraphicsContext context;
 
+    int currentSize;
+
     public void initialize() {
         context = paintingArea.getGraphicsContext2D();
         context.setFill(Color.web("#eddeaf"));
@@ -25,20 +31,33 @@ public class Controller {
         colorPicker.valueProperty().bindBidirectional(model.colorProperty());
         shapeType.setValue("Choose shape");
         shapeType.setItems(model.getShapes());
+
+
+
+/*
+        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100);
+        valueFactory.setValue(10);
+        currentSize = sizeSetter.getValue();
+        sizeSetter.valueProperty().addListener((observable, oldValue, newValue) -> currentSize = sizeSetter.getValue());
+*/
     }
 
 
     public void canvasClicked(MouseEvent mouseEvent) {
         context.setFill(model.getColor());
 
-        double sizeValue = sizeSetter.getValue();
-        double X = mouseEvent.getX() - (sizeValue / 2);
-        double Y = mouseEvent.getY() - (sizeValue / 2);
+        currentSize = sizeSetter.getValue();
+        double X = mouseEvent.getX() - (currentSize >> 1);
+        double Y = mouseEvent.getY() - (currentSize >> 1);
 
         if (shapeType.getValue().equals("Circle")) {
-            context.fillOval(X, Y, sizeValue, sizeValue);
+            context.fillOval(X, Y, currentSize, currentSize);
         } else if (shapeType.getValue().equals("Rectangle")) {
-            context.fillRect(X, Y, sizeValue, sizeValue);
+            context.fillRect(X, Y, currentSize, currentSize);
         }
+    }
+
+    public void undoClicked(ActionEvent actionEvent) {
+
     }
 }

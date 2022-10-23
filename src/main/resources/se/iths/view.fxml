@@ -15,37 +15,38 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane minHeight="300.0" minWidth="350.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="450.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.iths.Controller">
-   <top>
-       <VBox prefHeight="52.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-           <AnchorPane prefHeight="200.0" prefWidth="200.0">
-               <MenuBar fx:id="menuBar" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" prefWidth="550.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                   <Menu text="File">
-                       <MenuItem text="Close" />
-                   </Menu>
-                   <Menu text="Edit">
-                       <MenuItem text="Undo" />
-                   </Menu>
-                   <Menu text="Help">
-                       <MenuItem text="About" />
-                   </Menu>
-               </MenuBar>
-           </AnchorPane>
-           <ToolBar fx:id="toolBar" maxHeight="35.0" minHeight="35.0" prefHeight="35.0" prefWidth="550.0">
-               <Spinner id="size" fx:id="sizeSetter" amountToStepBy="1" editable="true" initialValue="5" max="100" min="1" prefWidth="75.0" />
-               <ChoiceBox fx:id="shapeType" prefWidth="100.0" />
-               <ColorPicker id="colorPicker" fx:id="colorPicker" prefWidth="100.0" />
-               <Button id="undoButton" fx:id="buttonUndo" text="Undo">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets></Button>
-           </ToolBar>
-       </VBox>
-   </top>
-   <center>
-      <Canvas fx:id="paintingArea" height="390.0" onMouseClicked="#canvasClicked" width="550.0" BorderPane.alignment="TOP_CENTER">
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-      </Canvas>
-   </center>
+    <top>
+        <VBox prefHeight="52.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                <MenuBar fx:id="menuBar" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" prefWidth="550.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <Menu text="File">
+                        <MenuItem text="Close" />
+                    </Menu>
+                    <Menu text="Edit">
+                        <MenuItem text="Undo" />
+                    </Menu>
+                    <Menu text="Help">
+                        <MenuItem text="About" />
+                    </Menu>
+                </MenuBar>
+            </AnchorPane>
+            <ToolBar fx:id="toolBar" maxHeight="35.0" minHeight="35.0" prefHeight="35.0" prefWidth="550.0">
+                <Spinner fx:id="sizeSetter" amountToStepBy="1" editable="true" initialValue="10" max="100" min="1" prefWidth="75.0" />
+                <ChoiceBox fx:id="shapeType" prefWidth="100.0" />
+                <ColorPicker fx:id="colorPicker" prefWidth="100.0" />
+                <Button fx:id="buttonUndo" onAction="#undoClicked" text="Undo">
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                </Button>
+            </ToolBar>
+        </VBox>
+    </top>
+    <center>
+        <Canvas fx:id="paintingArea" height="390.0" onMouseClicked="#canvasClicked" width="550.0" BorderPane.alignment="TOP_CENTER">
+            <BorderPane.margin>
+                <Insets />
+            </BorderPane.margin>
+        </Canvas>
+    </center>
 </BorderPane>
