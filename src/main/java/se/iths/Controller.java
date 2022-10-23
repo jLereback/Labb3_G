@@ -21,26 +21,24 @@ public class Controller {
     public void initialize() {
         context = paintingArea.getGraphicsContext2D();
         context.setFill(Color.web("#eddeaf"));
-        //context.fill();
+        context.fillRect(0, 0, paintingArea.getWidth(), paintingArea.getHeight());
         colorPicker.valueProperty().bindBidirectional(model.colorProperty());
         shapeType.setValue("Choose shape");
         shapeType.setItems(model.getShapes());
-        //sizeSetter.getValueFactory();
     }
 
 
     public void canvasClicked(MouseEvent mouseEvent) {
         context.setFill(model.getColor());
 
-        double sizeSetterValue = sizeSetter.getValue();
-        double X = mouseEvent.getX() - (sizeSetterValue/2);
-        double Y = mouseEvent.getY() - (sizeSetterValue/2);
+        double sizeValue = sizeSetter.getValue();
+        double X = mouseEvent.getX() - (sizeValue / 2);
+        double Y = mouseEvent.getY() - (sizeValue / 2);
 
         if (shapeType.getValue().equals("Circle")) {
-            context.fillOval(X, Y, sizeSetterValue, sizeSetterValue);
-        }
-        else if (shapeType.getValue().equals("Rectangle")) {
-            context.fillRect(X, Y, sizeSetterValue , sizeSetterValue);
+            context.fillOval(X, Y, sizeValue, sizeValue);
+        } else if (shapeType.getValue().equals("Rectangle")) {
+            context.fillRect(X, Y, sizeValue, sizeValue);
         }
     }
 }
