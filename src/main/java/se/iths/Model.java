@@ -16,7 +16,6 @@ public class Model {
     private ObservableList<String> shapes = FXCollections.observableArrayList(shapeList);
     private final ObjectProperty<Color> color;
 
-
     public Model() {
         this.color = new SimpleObjectProperty<>(Color.web("#004B87"));
     }
