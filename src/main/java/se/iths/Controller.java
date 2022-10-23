@@ -5,8 +5,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Shape;
-import se.iths.shapes.Circle;
 
 public class Controller {
     Model model = new Model();
@@ -24,14 +22,15 @@ public class Controller {
         context = paintingArea.getGraphicsContext2D();
         //paintingArea.setFocusTraversable(true);
         context.setFill(Color.web("#eddeaf"));
-        context.fillRect(0, 0, Double.MAX_VALUE, Double.MAX_VALUE);
+        //context.fill();
+        colorPicker.valueProperty().bindBidirectional(model.colorProperty());
         shapeType.setValue("Choose shape");
         shapeType.setItems(model.getShapes());
     }
 
 
     public void canvasClicked(MouseEvent mouseEvent) {
-        context.setFill(Color.web("#004B87"));
+        context.setFill(model.getColor());
 
         double ovalSize = 10;
         double ovalX = mouseEvent.getX() - (ovalSize/2);
