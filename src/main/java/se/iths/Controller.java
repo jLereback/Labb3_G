@@ -6,9 +6,12 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import se.iths.shapes.ShapeFactory;
+import se.iths.shapes.ShapeData;
 
 public class Controller {
     Model model = new Model();
+    ShapeFactory shapeFactory = new ShapeFactory();
     public MenuBar menuBar;
     public ToolBar toolBar;
     public Spinner<Integer> sizeSpinner;
@@ -23,29 +26,27 @@ public class Controller {
 
     public void initialize() {
         context = paintingArea.getGraphicsContext2D();
-        context.setFill(Color.web("#eddeaf"));
-        context.fillRect(0, 0, paintingArea.getWidth(), paintingArea.getHeight());
+
+        context.setFill(Color.web("#edece0"));
+        context.fillRect(0, 0, 1600, 800);
+
         colorPicker.valueProperty().bindBidirectional(model.colorProperty());
-        shapeType.setValue("Choose shape");
+
+        shapeType.valueProperty().bindBidirectional(model.shapeProperty());
         shapeType.setItems(model.getShapes());
 
-        currentSize = sizeSpinner.getValue();
+        sizeSpinner.getValueFactory().valueProperty().bindBidirectional(model.sizeProperty());
 
+
+        currentSize = sizeSpinner.getValue();
         sizeSpinner.valueProperty().addListener((observable, oldValue, newValue) -> currentSize = sizeSpinner.getValue());
     }
-
-
     public void canvasClicked(MouseEvent mouseEvent) {
-        context.setFill(model.getColor());
-
         double X = mouseEvent.getX() - (currentSize >> 1);
         double Y = mouseEvent.getY() - (currentSize >> 1);
 
-        if (shapeType.getValue().equals("Circle")) {
-            context.fillOval(X, Y, currentSize, currentSize);
-        } else if (shapeType.getValue().equals("Rectangle")) {
-            context.fillRect(X, Y, currentSize, currentSize);
-        }
+        var shapeValue = new ShapeData(X, Y, currentSize, colorPicker);
+        shapeFactory.getShape(shapeType.getValue(), shapeValue).draw(context);
     }
 
     public void undoClicked(ActionEvent actionEvent) {

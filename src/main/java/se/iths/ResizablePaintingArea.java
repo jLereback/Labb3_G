@@ -42,12 +42,12 @@ public class ResizablePaintingArea extends Canvas {
 
     @Override
     public double minWidth(double height) {
-        return 350;
+        return 1;
     }
 
     @Override
     public double minHeight(double width) {
-        return 240;
+        return 1;
     }
 
     @Override
@@ -64,7 +64,6 @@ public class ResizablePaintingArea extends Canvas {
     public double maxWidth(double height) {
         return Double.MAX_VALUE;
     }
-
 
     @Override
     public double maxHeight(double width) {

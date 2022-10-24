@@ -2,19 +2,15 @@ package se.iths.shapes;
 
 public class ShapeFactory {
 
-    public Shape getShape(String shapeType) {
+    public Shape getShape(String shapeType, ShapeData values) {
         if(shapeType == null){
             return null;
         }
-        if(shapeType.equalsIgnoreCase("CIRCLE")){
-            return new Circle();
-
-        } else if(shapeType.equalsIgnoreCase("RECTANGLE")){
-            return new Rectangle();
+        if(shapeType.equals("Circle")){
+            return new Circle(values);
+        } else if(shapeType.equals("Square")){
+            return new Square(values);
         }
-
         return null;
     }
-
-
 }

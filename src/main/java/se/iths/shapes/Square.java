@@ -2,18 +2,18 @@ package se.iths.shapes;
 
 import javafx.scene.canvas.GraphicsContext;
 
-public final class Circle implements Shape {
+public final class Square implements Shape {
     private ShapeData data;
-    public Circle(ShapeData data) {
+    public Square(ShapeData data) {
         this.data = data;
     }
 
-    public Circle() {
+    public Square() {
     }
 
     @Override
     public void draw(GraphicsContext context) {
         context.setFill(data.colorPicker().getValue());
-        context.fillOval(data.posX(), data.posY(), data.size(), data.size());
+        context.fillRect(data.posX(), data.posY(), data.size(), data.size());
     }
 }
