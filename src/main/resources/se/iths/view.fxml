@@ -21,7 +21,7 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
                 <MenuBar fx:id="menuBar" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" prefWidth="550.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <Menu text="File">
-                        <MenuItem text="Close" />
+                        <MenuItem text="Close" onAction="#exit"/>
                     </Menu>
                     <Menu text="Edit">
                         <MenuItem text="Undo" />

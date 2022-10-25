@@ -4,71 +4,49 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
+import se.iths.shapes.Shape;
+
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class Model {
-    String[] shapeList = {"Circle", "Square"};
-    private ObservableList<String> shapes = FXCollections.observableArrayList(shapeList);
+    String[] shapeNames = {"Circle", "Square"};
+    private final ObservableList<String> choiceBoxShapeList = FXCollections.observableArrayList(shapeNames);
+    private Deque<Shape> tempList;
+    public Deque<Shape> shapeList;
     private final Property<Integer> size;
     private final ObjectProperty<Color> color;
-    public final ObjectProperty<String> shape;
+    public final ObjectProperty<String> currentShape;
 
     public Model() {
+        this.shapeList = new ArrayDeque<>();
+        this.tempList = new ArrayDeque<>();
         this.color = new SimpleObjectProperty<>(Color.web("#004B87"));
         this.size = new SimpleObjectProperty<>(50);
-        this.shape = new SimpleObjectProperty<>("Choose shape");
+        this.currentShape = new SimpleObjectProperty<>("Choose shape");
     }
-
-    public ObjectProperty<String> shapeProperty() {
-        return shape;
+    public ObjectProperty<String> currentShapeProperty() {
+        return currentShape;
     }
-
-    public Property<Integer> getSize() {
-        return size;
-    }
-
     public Property<Integer> sizeProperty() {
         return size;
     }
-
-    public Color getColor() {
-        return color.get();
-    }
-
-    public void setShapes(ObservableList<String> shapes) {
-        this.shapes = shapes;
-    }
-
     public ObjectProperty<Color> colorProperty() {
         return color;
     }
-
-    public ObservableList<String> getShapes() {
-        return shapes;
+    public ObservableList<String> getChoiceBoxShapeList() {
+        return choiceBoxShapeList;
     }
-
-/*    public ObservableList<String> getTempList() {
-        ObservableList<String> tempList = FXCollections.observableArrayList();
-
-        for (String shape : shapes)
-            tempList.add(shape.copyOf());
-
-        return tempList;
+    public Deque<Shape> getShapeList() {
+        return shapeList;
     }
-
     public void undo() {
-        if (undo.isEmpty()) {
+        if (tempList.isEmpty())
             return;
-        }
-        ObservableList<String> temp = getTempList();
-        redo.addLast(temp);
-        shapes = undo.removeLast();
+        tempList.removeLast();
+        shapeList = tempList;
     }
-
-    public void redo() {
-        if (redo.isEmpty())
-            return;
-        ObservableList<String> temp = getTempList();
-        undo.addLast(FXCollections.observableArrayList(temp));
-        shapes = redo.removeLast();
-    }*/
+    public void prepareDrawing() {
+        tempList = shapeList;
+    }
 }

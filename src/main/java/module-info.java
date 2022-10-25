@@ -5,4 +5,7 @@ module se.iths.labb3 {
 
     opens se.iths to javafx.fxml;
     exports se.iths;
+
+    opens se.iths.shapes to javafx.fxml;
+    exports se.iths.shapes;
 }

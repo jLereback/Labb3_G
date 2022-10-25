@@ -3,8 +3,8 @@ package se.iths.shapes;
 import javafx.scene.canvas.GraphicsContext;
 
 public final class Square implements Shape {
-    private ShapeData data;
-    public Square(ShapeData data) {
+    private shapeParameter data;
+    public Square(shapeParameter data) {
         this.data = data;
     }
 

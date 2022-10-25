@@ -1,8 +1,10 @@
 package se.iths.shapes;
 
+import javafx.collections.ObservableList;
+
 public class ShapeFactory {
 
-    public Shape getShape(String shapeType, ShapeData values) {
+    public Shape getShape(String shapeType, shapeParameter values) {
         if(shapeType == null){
             return null;
         }

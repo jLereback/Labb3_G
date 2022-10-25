@@ -3,8 +3,8 @@ package se.iths.shapes;
 import javafx.scene.canvas.GraphicsContext;
 
 public final class Circle implements Shape {
-    private ShapeData data;
-    public Circle(ShapeData data) {
+    private shapeParameter data;
+    public Circle(shapeParameter data) {
         this.data = data;
     }
 
