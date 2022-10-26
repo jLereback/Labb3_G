@@ -3,17 +3,23 @@ package se.iths.shapes;
 import javafx.scene.canvas.GraphicsContext;
 
 public final class Square implements Shape {
-    private shapeParameter data;
+    private shapeParameter parameter;
     public Square(shapeParameter data) {
-        this.data = data;
+        this.parameter = data;
     }
-
     public Square() {
     }
-
+    @Override
+    public String toString() {
+        return "Square";
+    }
     @Override
     public void draw(GraphicsContext context) {
-        context.setFill(data.colorPicker().getValue());
-        context.fillRect(data.posX(), data.posY(), data.size(), data.size());
+        context.setFill(parameter.color());
+        context.fillRect(parameter.centerX(), parameter.centerY(), parameter.size(), parameter.size());
+    }
+    @Override
+    public Boolean isInside(double posX, double posY) {
+        return null;
     }
 }

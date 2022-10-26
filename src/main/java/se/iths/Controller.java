@@ -1,6 +1,5 @@
 package se.iths;
 
-import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -10,11 +9,14 @@ import se.iths.shapes.ShapeFactory;
 import se.iths.shapes.shapeParameter;
 
 public class Controller {
+    public static final int TOP_EDGE = 0;
+    public static final int LEFT_EDGE = 0;
+    public static final int MAX_WIDTH = 2000;
+    public static final int MAX_HEIGHT = 1000;
+
     Model model = new Model();
     ShapeFactory shapeFactory = new ShapeFactory();
 
-    public static final int MAX_WIDTH = 2000;
-    public static final int MAX_HEIGHT = 1000;
     public MenuBar menuBar;
     public ToolBar toolBar;
     public Spinner<Integer> sizeSpinner;
@@ -26,6 +28,7 @@ public class Controller {
     public GraphicsContext context;
 
     int currentSize;
+    Color currentColor;
 
     public void initialize() {
         context = paintingArea.getGraphicsContext2D();
@@ -34,24 +37,34 @@ public class Controller {
 
         colorPicker.valueProperty().bindBidirectional(model.colorProperty());
 
-        shapeType.valueProperty().bindBidirectional(model.currentShapeProperty());
+        shapeType.valueProperty().bindBidirectional(model.shapeProperty());
         shapeType.setItems(model.getChoiceBoxShapeList());
 
         sizeSpinner.getValueFactory().valueProperty().bindBidirectional(model.sizeProperty());
 
+        currentSize = model.getSize();
+        sizeSpinner.valueProperty().addListener((observable, oldValue, newValue) -> currentSize = model.getSize());
 
-        currentSize = sizeSpinner.getValue();
-        sizeSpinner.valueProperty().addListener((observable, oldValue, newValue) -> currentSize = sizeSpinner.getValue());
+        currentColor = model.getColor();
+        colorPicker.valueProperty().addListener((observable, oldValue, newValue) -> currentColor = model.getColor());
     }
 
     public void canvasClicked(MouseEvent mouseEvent) {
-        double X = mouseEvent.getX() - (currentSize >> 1);
-        double Y = mouseEvent.getY() - (currentSize >> 1);
+        double centerX = mouseEvent.getX() - (currentSize >> 1);
+        double centerY = mouseEvent.getY() - (currentSize >> 1);
+        if (mouseEvent.isControlDown()) {
+            selectShape();
+        }
+        else {
 
-        var shapeParameter = new shapeParameter(X, Y, currentSize, colorPicker);
-        model.getShapeList().addLast(shapeFactory.getShape(shapeType.getValue(), shapeParameter));
-        model.prepareDrawing();
-        draw();
+            var shapeParameter = new shapeParameter(centerX, centerY, currentSize, currentColor);
+
+            model.prepareDrawingList();
+
+            model.getShapeList().addLast(shapeFactory.getNewShape(shapeType.getValue(), shapeParameter));
+
+            draw();
+        }
     }
 
     private void draw() {
@@ -67,6 +80,10 @@ public class Controller {
     public void undoClicked() {
         model.undo();
         draw();
+    }
+
+    public void selectShape() {
+
     }
 
     public void exit() {

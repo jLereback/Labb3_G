@@ -3,17 +3,23 @@ package se.iths.shapes;
 import javafx.scene.canvas.GraphicsContext;
 
 public final class Circle implements Shape {
-    private shapeParameter data;
-    public Circle(shapeParameter data) {
-        this.data = data;
+    private shapeParameter parameter;
+    public Circle(shapeParameter parameter) {
+        this.parameter = parameter;
     }
-
     public Circle() {
     }
-
+    @Override
+    public String toString() {
+        return "Circle";
+    }
     @Override
     public void draw(GraphicsContext context) {
-        context.setFill(data.colorPicker().getValue());
-        context.fillOval(data.posX(), data.posY(), data.size(), data.size());
+        context.setFill(parameter.color());
+        context.fillOval(parameter.centerX(), parameter.centerY(), parameter.size(), parameter.size());
+    }
+    @Override
+    public Boolean isInside(double posX, double posY) {
+        return null;
     }
 }

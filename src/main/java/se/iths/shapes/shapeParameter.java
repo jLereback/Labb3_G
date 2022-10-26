@@ -1,5 +1,5 @@
 package se.iths.shapes;
 
-import javafx.scene.control.ColorPicker;
+import javafx.scene.paint.Color;
 
-public record shapeParameter(Double posX, Double posY, int size, ColorPicker colorPicker) {}
+public record shapeParameter(double centerX, double centerY, int size, Color color) {}
