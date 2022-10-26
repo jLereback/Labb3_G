@@ -10,30 +10,30 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class Model {
-    String[] shapeNames = {ShapeFactory.getShapeName(new Circle()), ShapeFactory.getShapeName(new Square())};
-    private final ObservableList<String> choiceBoxShapeList = FXCollections.observableArrayList(shapeNames);
+    Shape[] shapeNames = {ShapeFactory.getShape(new Circle()), ShapeFactory.getShape(new Square())};
+    private final ObservableList<Shape> choiceBoxShapeList = FXCollections.observableArrayList(shapeNames);
     private Deque<Shape> tempList;
     public Deque<Shape> shapeList;
     private final ObjectProperty<Integer> size;
     private final ObjectProperty<Color> color;
-    public final ObjectProperty<String> shape;
+    public final ObjectProperty<Shape> shape;
 
     public Model() {
         this.shapeList = new ArrayDeque<>();
         this.tempList = new ArrayDeque<>();
         this.color = new SimpleObjectProperty<>(Color.web("#004B87"));
         this.size = new SimpleObjectProperty<>(50);
-        this.shape = new SimpleObjectProperty<>("Choose shape");
+        this.shape = new SimpleObjectProperty<>();
     }
-    public ObjectProperty<String> shapeProperty() {
+    public ObjectProperty<Shape> shapeProperty() {
         return shape;
     }
 
-    public String getShape() {
+    public Shape getShape() {
         return shape.get();
     }
 
-    public void setShape(String shape) {
+    public void setShape(Shape shape) {
         this.shape.set(shape);
     }
 
@@ -61,7 +61,7 @@ public class Model {
         this.color.set(color);
     }
 
-    public ObservableList<String> getChoiceBoxShapeList() {
+    public ObservableList<Shape> getChoiceBoxShapeList() {
         return choiceBoxShapeList;
     }
     public Deque<Shape> getShapeList() {

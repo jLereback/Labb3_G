@@ -2,12 +2,12 @@ package se.iths.shapes;
 
 public class ShapeFactory {
 
-    public Shape getNewShape(String shapeType, shapeParameter parameter) {
+    public Shape getNewShape(Shape shapeType, ShapeParameter parameter) {
         if (shapeType == null)
             return null;
-        if (shapeType.equals(new Circle().toString()))
+        if (shapeType.toString().equals(new Circle().toString()))
             return new Circle(parameter);
-        else if (shapeType.equals(new Square().toString()))
+        else if (shapeType.toString().equals(new Square().toString()))
             return new Square(parameter);
         return null;
     }
@@ -15,8 +15,11 @@ public class ShapeFactory {
     public static String getShapeName(Shape shape) {
         return Shape.getName(shape);
     }
+    public static Shape getShape(Shape shape) {
+        return Shape.get(shape);
+    }
 
-    public void /*Shape*/ getShape(String shapeType, shapeParameter values) {
+    public void /*Shape*/ getShape(String shapeType, ShapeParameter values) {
 
         //Todo;Redan utritade objekt ska kunna väljas genom att gå över i select mode och klicka på skärmen.
         // Använd musens koordinater för att leta upp det objekt du klickat på.

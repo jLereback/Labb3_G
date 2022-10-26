@@ -5,8 +5,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import se.iths.shapes.Shape;
 import se.iths.shapes.ShapeFactory;
-import se.iths.shapes.shapeParameter;
+import se.iths.shapes.ShapeParameter;
 
 public class Controller {
     public static final int TOP_EDGE = 0;
@@ -20,15 +21,14 @@ public class Controller {
     public MenuBar menuBar;
     public ToolBar toolBar;
     public Spinner<Integer> sizeSpinner;
-    public ChoiceBox<String> shapeType;
+    public ChoiceBox<Shape> shapeType;
     public Button buttonUndo;
     public ColorPicker colorPicker;
     public Canvas paintingArea;
 
     public GraphicsContext context;
 
-    int currentSize;
-    Color currentColor;
+
 
     public void initialize() {
         context = paintingArea.getGraphicsContext2D();
@@ -41,23 +41,17 @@ public class Controller {
         shapeType.setItems(model.getChoiceBoxShapeList());
 
         sizeSpinner.getValueFactory().valueProperty().bindBidirectional(model.sizeProperty());
-
-        currentSize = model.getSize();
-        sizeSpinner.valueProperty().addListener((observable, oldValue, newValue) -> currentSize = model.getSize());
-
-        currentColor = model.getColor();
-        colorPicker.valueProperty().addListener((observable, oldValue, newValue) -> currentColor = model.getColor());
     }
 
     public void canvasClicked(MouseEvent mouseEvent) {
-        double centerX = mouseEvent.getX() - (currentSize >> 1);
-        double centerY = mouseEvent.getY() - (currentSize >> 1);
+        double centerX = mouseEvent.getX() - (model.getSize() >> 1);
+        double centerY = mouseEvent.getY() - (model.getSize() >> 1);
         if (mouseEvent.isControlDown()) {
-            selectShape();
+            selectShape(mouseEvent);
         }
         else {
 
-            var shapeParameter = new shapeParameter(centerX, centerY, currentSize, currentColor);
+            var shapeParameter = new ShapeParameter(centerX, centerY, model.getSize(), model.getColor());
 
             model.prepareDrawingList();
 
@@ -82,9 +76,31 @@ public class Controller {
         draw();
     }
 
-    public void selectShape() {
 
+    public void selectShape(MouseEvent mouseEvent) {
+        double posX = mouseEvent.getX();
+        double posY = mouseEvent.getY();
+
+        model.getShapeList().stream()
+                .filter(shape -> shape.isInside(posX,posY))
+                .reduce((first , second) -> second)
+                .ifPresent(shape -> shape.);
     }
+/*
+    private void changeShapeSize(MouseEvent event) {
+        model.shapes.stream()
+                .filter(shape -> shape.isInside(event.getX(), event.getY()))
+                .reduce((first, second) -> second)
+                .ifPresent(shape -> shape.setSize(sizeSpinner.getValue()));
+    }
+
+    private void changeShapeColor(MouseEvent event) {
+        model.shapes.stream()
+                .filter(shape -> shape.isInside(event.getX(), event.getY()))
+                .reduce((first, second) -> second)
+                .ifPresent(shape -> shape.setColor(model.getColor()));
+    }
+*/
 
     public void exit() {
         System.exit(0);
