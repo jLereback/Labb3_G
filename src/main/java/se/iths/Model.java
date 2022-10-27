@@ -10,7 +10,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class Model {
-    Shape[] shapeNames = {ShapeFactory.getShape(new Circle()), ShapeFactory.getShape(new Square())};
+    Shape[] shapeNames = {new Circle(), new Square()};
     private final ObservableList<Shape> choiceBoxShapeList = FXCollections.observableArrayList(shapeNames);
     private Deque<Shape> tempList;
     public Deque<Shape> shapeList;
@@ -25,6 +25,7 @@ public class Model {
         this.size = new SimpleObjectProperty<>(50);
         this.shape = new SimpleObjectProperty<>();
     }
+
     public ObjectProperty<Shape> shapeProperty() {
         return shape;
     }
@@ -64,15 +65,18 @@ public class Model {
     public ObservableList<Shape> getChoiceBoxShapeList() {
         return choiceBoxShapeList;
     }
+
     public Deque<Shape> getShapeList() {
         return shapeList;
     }
+
     public void undo() {
         if (tempList.isEmpty())
             return;
         tempList.removeLast();
         shapeList = tempList;
     }
+
     public void prepareDrawingList() {
         tempList = shapeList;
     }

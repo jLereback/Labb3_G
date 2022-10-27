@@ -1,23 +1,28 @@
 package se.iths.shapes;
 
-import javafx.css.Size;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-public interface Shape {
-    void draw(GraphicsContext context);
+public abstract class Shape {
+    public ShapeParameter parameter;
 
-    static String getName(Shape shape) {
-        return shape.toString();
+    public Shape(ShapeParameter parameter) {
+        this.parameter = parameter;
     }
-
-    Integer getSize(int size);
-    Color getColor(Color color);
-    Integer setSize(int size);
-    Color setColor(Color color);
-
-    static Shape get(Shape shape) {
-        return shape;
+    public Shape() {
     }
-    Boolean isInside(double posX, double posY);
+    public abstract void draw(GraphicsContext context);
+    public Integer getSize() {
+        return this.parameter.getSize();
+    }
+    public Color getColor() {
+        return this.parameter.getColor();
+    }
+    public void setSize(int size) {
+        this.parameter.setSize(size);
+    }
+    public void setColor(Color color) {
+        this.parameter.setColor(color);
+    }
+    public abstract Boolean isInside(double posX, double posY);
 }

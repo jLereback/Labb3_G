@@ -12,13 +12,6 @@ public class ShapeFactory {
         return null;
     }
 
-    public static String getShapeName(Shape shape) {
-        return Shape.getName(shape);
-    }
-    public static Shape getShape(Shape shape) {
-        return Shape.get(shape);
-    }
-
     public void /*Shape*/ getShape(String shapeType, ShapeParameter values) {
 
         //Todo;Redan utritade objekt ska kunna väljas genom att gå över i select mode och klicka på skärmen.

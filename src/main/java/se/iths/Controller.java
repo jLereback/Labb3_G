@@ -29,7 +29,6 @@ public class Controller {
     public GraphicsContext context;
 
 
-
     public void initialize() {
         context = paintingArea.getGraphicsContext2D();
 
@@ -48,8 +47,7 @@ public class Controller {
         double centerY = mouseEvent.getY() - (model.getSize() >> 1);
         if (mouseEvent.isControlDown()) {
             selectShape(mouseEvent);
-        }
-        else {
+        } else {
 
             var shapeParameter = new ShapeParameter(centerX, centerY, model.getSize(), model.getColor());
 
@@ -82,9 +80,9 @@ public class Controller {
         double posY = mouseEvent.getY();
 
         model.getShapeList().stream()
-                .filter(shape -> shape.isInside(posX,posY))
-                .reduce((first , second) -> second)
-                .ifPresent(shape -> shape.);
+                .filter(shape -> shape.isInside(posX, posY))
+                .reduce((first, second) -> second)
+                .ifPresent(shape -> shape.setColor(model.getColor()));
     }
 /*
     private void changeShapeSize(MouseEvent event) {
