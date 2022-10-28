@@ -8,6 +8,7 @@ public abstract class Shape {
 
     public Shape(ShapeParameter parameter) {
         this.parameter = parameter;
+
     }
     public Shape() {
     }
@@ -24,5 +25,23 @@ public abstract class Shape {
     public void setColor(Color color) {
         this.parameter.setColor(color);
     }
+
+    public double getX() {
+        return parameter.getX();
+    }
+
+    public void setX(double X) {
+        this.parameter.setX(X);
+    }
+
+    public double getY() {
+        return parameter.getY();
+    }
+
+    public void setY(double Y) {
+        this.parameter.setY(Y);
+    }
+
+
     public abstract Boolean isInside(double posX, double posY);
 }

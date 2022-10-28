@@ -5,32 +5,32 @@ import javafx.scene.paint.Color;
 import java.util.Objects;
 
 public final class ShapeParameter {
-    private double centerX;
-    private double centerY;
+    private double X;
+    private double Y;
     private int size;
     private Color color;
 
-    public ShapeParameter(double centerX, double centerY, int size, Color color) {
-        this.centerX = centerX;
-        this.centerY = centerY;
+    public ShapeParameter(double X, double Y, int size, Color color) {
+        this.X = X;
+        this.Y = Y;
         this.size = size;
         this.color = color;
     }
 
-    public double getCenterX() {
-        return centerX;
+    public double getX() {
+        return X;
     }
 
-    public void setCenterX(double centerX) {
-        this.centerX = centerX;
+    public void setX(double x) {
+        this.X = x;
     }
 
-    public double getCenterY() {
-        return centerY;
+    public double getY() {
+        return Y;
     }
 
-    public void setCenterY(double centerY) {
-        this.centerY = centerY;
+    public void setY(double y) {
+        this.Y = y;
     }
 
     public int getSize() {
@@ -54,22 +54,22 @@ public final class ShapeParameter {
         if (obj == this) return true;
         if (obj == null || obj.getClass() != this.getClass()) return false;
         var that = (ShapeParameter) obj;
-        return Double.doubleToLongBits(this.centerX) == Double.doubleToLongBits(that.centerX) &&
-                Double.doubleToLongBits(this.centerY) == Double.doubleToLongBits(that.centerY) &&
+        return Double.doubleToLongBits(this.X) == Double.doubleToLongBits(that.X) &&
+                Double.doubleToLongBits(this.Y) == Double.doubleToLongBits(that.Y) &&
                 this.size == that.size &&
                 Objects.equals(this.color, that.color);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(centerX, centerY, size, color);
+        return Objects.hash(X, Y, size, color);
     }
 
     @Override
     public String toString() {
         return "ShapeParameter[" +
-                "centerX=" + centerX + ", " +
-                "centerY=" + centerY + ", " +
+                "centerX=" + X + ", " +
+                "centerY=" + Y + ", " +
                 "size=" + size + ", " +
                 "color=" + color + ']';
     }

@@ -40,12 +40,16 @@ public class Controller {
         shapeType.setItems(model.getChoiceBoxShapeList());
 
         sizeSpinner.getValueFactory().valueProperty().bindBidirectional(model.sizeProperty());
+
+        model.getChoiceBoxShapeList().stream();
+        shapeType.hoverProperty().addListener(observable -> System.out.println("test"));
     }
 
     public void canvasClicked(MouseEvent mouseEvent) {
         double centerX = mouseEvent.getX() - (model.getSize() >> 1);
         double centerY = mouseEvent.getY() - (model.getSize() >> 1);
         if (mouseEvent.isControlDown()) {
+            //model.getShape().isInside()
             selectShape(mouseEvent);
         } else {
 
@@ -83,6 +87,8 @@ public class Controller {
                 .filter(shape -> shape.isInside(posX, posY))
                 .reduce((first, second) -> second)
                 .ifPresent(shape -> shape.setColor(model.getColor()));
+
+        draw();
     }
 /*
     private void changeShapeSize(MouseEvent event) {
