@@ -26,22 +26,26 @@ public abstract class Shape {
         this.parameter.setColor(color);
     }
 
+    public void updateShape(Color color, int size){
+        setColor(color);
+        setSize(size);
+    }
     public double getX() {
-        return parameter.getX();
+        return parameter.getPosX();
     }
 
     public void setX(double X) {
-        this.parameter.setX(X);
+        this.parameter.setPosX(X);
     }
 
     public double getY() {
-        return parameter.getY();
+        return parameter.getPosY();
     }
 
     public void setY(double Y) {
-        this.parameter.setY(Y);
+        this.parameter.setPosY(Y);
     }
-
 
     public abstract Boolean isInside(double posX, double posY);
 }
+

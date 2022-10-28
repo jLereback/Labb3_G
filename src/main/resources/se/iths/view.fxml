@@ -43,7 +43,7 @@
         </VBox>
     </top>
     <center>
-        <Canvas fx:id="paintingArea" height="800.0" onMouseClicked="#canvasClicked" width="1600.0" BorderPane.alignment="TOP_LEFT">
+        <Canvas fx:id="paintingArea" height="800.0" onMouseClicked="#canvasClicked" width="1600.0" BorderPane.alignment="TOP_LEFT" onDragOver="#hoverShape">
             <BorderPane.margin>
                 <Insets />
             </BorderPane.margin>

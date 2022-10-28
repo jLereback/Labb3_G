@@ -5,32 +5,32 @@ import javafx.scene.paint.Color;
 import java.util.Objects;
 
 public final class ShapeParameter {
-    private double X;
-    private double Y;
+    private double posX;
+    private double posY;
     private int size;
     private Color color;
 
-    public ShapeParameter(double X, double Y, int size, Color color) {
-        this.X = X;
-        this.Y = Y;
+    public ShapeParameter(double posX, double posY, int size, Color color) {
+        this.posX = posX;
+        this.posY = posY;
         this.size = size;
         this.color = color;
     }
 
-    public double getX() {
-        return X;
+    public double getPosX() {
+        return posX;
     }
 
-    public void setX(double x) {
-        this.X = x;
+    public void setPosX(double posX) {
+        this.posX = posX;
     }
 
-    public double getY() {
-        return Y;
+    public double getPosY() {
+        return posY;
     }
 
-    public void setY(double y) {
-        this.Y = y;
+    public void setPosY(double posY) {
+        this.posY = posY;
     }
 
     public int getSize() {
@@ -54,22 +54,22 @@ public final class ShapeParameter {
         if (obj == this) return true;
         if (obj == null || obj.getClass() != this.getClass()) return false;
         var that = (ShapeParameter) obj;
-        return Double.doubleToLongBits(this.X) == Double.doubleToLongBits(that.X) &&
-                Double.doubleToLongBits(this.Y) == Double.doubleToLongBits(that.Y) &&
+        return Double.doubleToLongBits(this.posX) == Double.doubleToLongBits(that.posX) &&
+                Double.doubleToLongBits(this.posY) == Double.doubleToLongBits(that.posY) &&
                 this.size == that.size &&
                 Objects.equals(this.color, that.color);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(X, Y, size, color);
+        return Objects.hash(posX, posY, size, color);
     }
 
     @Override
     public String toString() {
         return "ShapeParameter[" +
-                "centerX=" + X + ", " +
-                "centerY=" + Y + ", " +
+                "centerX=" + posX + ", " +
+                "centerY=" + posY + ", " +
                 "size=" + size + ", " +
                 "color=" + color + ']';
     }

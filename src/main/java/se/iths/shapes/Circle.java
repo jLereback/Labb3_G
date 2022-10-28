@@ -5,37 +5,29 @@ import javafx.scene.canvas.GraphicsContext;
 public final class Circle extends Shape {
     public Circle(ShapeParameter parameter) {
         super(parameter);
-
     }
     public Circle() {
     }
-
     @Override
     public void draw(GraphicsContext context) {
         context.setFill(getColor());
         context.fillOval(getX(), getY(), getSize(), getSize());
-
     }
-
-
-
+    private double getCircleRadius(){
+        return getSize() >> 1;
+    }
     @Override
     public Boolean isInside(double posX, double posY) {
-        double radius = getSize() >> 1;
-        double centerX = getX() + radius;
-        double centerY = getY() + radius;
+        double centerPointX = getX() + getCircleRadius();
+        double centerPointY = getY() + getCircleRadius();
 
-        double distanceToX = posX - centerX;
-        double distanceToY = posY - centerY;
+        double distX = posX - centerPointX;
+        double distY = posY - centerPointY;
 
-        if (distanceToX < 0)
-            distanceToX = distanceToX * -1;
-        if (distanceToY < 0)
-            distanceToY = distanceToY * -1;
+        double distToCenter = Math.sqrt((distX * distX) + (distY * distY));
 
-        return distanceToX <= radius && distanceToY <= radius;
+        return distToCenter <= getCircleRadius();
     }
-
     @Override
     public String toString() {
         return "Circle";
