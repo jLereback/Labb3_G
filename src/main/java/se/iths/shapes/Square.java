@@ -1,13 +1,21 @@
 package se.iths.shapes;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.scene.canvas.GraphicsContext;
 
 public final class Square extends Shape {
     public Square(ShapeParameter parameter) {
         super(parameter);
     }
-    public Square() {
+    public Square(Square square) {
+        super(square);
     }
+
+    @Override
+    public Shape getDuplicate() {
+        return new Square(this.parameter);
+    }
+
     @Override
     public void draw(GraphicsContext context) {
         context.setFill(getColor());
@@ -22,6 +30,11 @@ public final class Square extends Shape {
         double distanceToY = Math.abs(posY - centerPointY);
 
         return distanceToX <= getHalfSideSize() && distanceToY <= getHalfSideSize();
+    }
+
+    @Override
+    public ShapeType getType() {
+        return ShapeType.SQUARE;
     }
 
     private double getHalfSideSize() {

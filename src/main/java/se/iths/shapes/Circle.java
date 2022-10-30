@@ -1,13 +1,21 @@
 package se.iths.shapes;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.scene.canvas.GraphicsContext;
 
 public final class Circle extends Shape {
     public Circle(ShapeParameter parameter) {
         super(parameter);
     }
-    public Circle() {
+    public Circle(Shape shape) {
+        super(shape);
     }
+
+    @Override
+    public Shape getDuplicate() {
+        return new Circle(this.parameter);
+    }
+
     @Override
     public void draw(GraphicsContext context) {
         context.setFill(getColor());
@@ -28,6 +36,12 @@ public final class Circle extends Shape {
 
         return distToCenter <= getCircleRadius();
     }
+
+    @Override
+    public ShapeType getType() {
+        return ShapeType.CIRCLE;
+    }
+
     @Override
     public String toString() {
         return "Circle";

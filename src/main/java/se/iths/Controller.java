@@ -1,5 +1,6 @@
 package se.iths;
 
+import javafx.collections.ListChangeListener;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -44,7 +45,7 @@ public class Controller {
 
         sizeSpinner.getValueFactory().valueProperty().bindBidirectional(model.sizeProperty());
 
-        //model.getShapeList().addListener((ListChangeListener<Shape>) change -> draw());
+        model.getShapeList().addListener((ListChangeListener<Shape>) change -> draw());
 
         shapeType.setTooltip(new Tooltip("Test"));
         shapeType.hoverProperty().addListener(observable -> System.out.println("test"));
@@ -103,13 +104,13 @@ public class Controller {
 
     private void updateColor(MouseEvent mouseEvent) {
         model.addToUndoList();
-        findShape(mouseEvent).ifPresent(shape -> shape.setColor(model.getColor()));
+        findShape(mouseEvent).ifPresent(shape -> shape.getDuplicate().setColor(model.getColor()));
         draw();
     }
 
     private void updateSize(MouseEvent mouseEvent) {
         model.addToUndoList();
-        findShape(mouseEvent).ifPresent(shape -> shape.setSize(model.getSize()));
+        findShape(mouseEvent).ifPresent(shape -> shape.getDuplicate().setSize(model.getSize()));
         draw();
     }
 

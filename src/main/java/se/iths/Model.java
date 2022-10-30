@@ -1,5 +1,6 @@
 package se.iths;
 
+import javafx.beans.Observable;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,74 +11,91 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class Model {
+    private final ShapeFactory shapeFactory;
     ShapeType[] shapeNames = {ShapeType.CIRCLE, ShapeType.SQUARE};
     private final ObservableList<ShapeType> choiceBoxShapeList = FXCollections.observableArrayList(shapeNames);
-    private Deque<Shape> tempList;
-    public Deque<Shape> shapeList;
+    private final Deque<Deque<Shape>> undoDeque;
+    //public Deque<Shape> shapeList;
+    public ObservableList<Shape> shapeList;
     private final ObjectProperty<Integer> size;
     private final ObjectProperty<Color> color;
-    public final ObjectProperty<ShapeType> shape;
-
+    public final ObjectProperty<ShapeType> shapeType;
+    public final ObjectProperty<Shape> shape;
     public Model() {
-        this.shapeList = new ArrayDeque<>();
-        this.tempList = new ArrayDeque<>();
+        this.shapeFactory = new ShapeFactory();
+        //this.shapeList = new ArrayDeque<>();
+        this.shapeList = FXCollections.observableArrayList();
+        this.undoDeque = new ArrayDeque<>();
         this.color = new SimpleObjectProperty<>(Color.web("#004B87"));
         this.size = new SimpleObjectProperty<>(50);
+        this.shapeType = new SimpleObjectProperty<>();
         this.shape = new SimpleObjectProperty<>();
     }
 
-    public ObjectProperty<ShapeType> shapeProperty() {
-        return shape;
-    }
-
-    public ShapeType getShape() {
+    public Shape getShape() {
         return shape.get();
     }
 
-    public void setShape(ShapeType shape) {
+    public ObjectProperty<Shape> shapeProperty() {
+        return shape;
+    }
+
+    public void setShape(Shape shape) {
         this.shape.set(shape);
+    }
+
+    public ObjectProperty<ShapeType> shapeTypeProperty() {
+        return shapeType;
+    }
+
+    public ShapeType getShapeType() {
+        return shapeType.get();
+    }
+
+    public void setShapeType(ShapeType shapeType) {
+        this.shapeType.set(shapeType);
     }
 
     public Property<Integer> sizeProperty() {
         return size;
     }
-
     public Integer getSize() {
         return size.get();
     }
-
-    public void setSize(Integer size) {
-        this.size.set(size);
-    }
-
     public ObjectProperty<Color> colorProperty() {
         return color;
     }
-
     public Color getColor() {
         return color.get();
     }
-
-    public void setColor(Color color) {
-        this.color.set(color);
-    }
-
     public ObservableList<ShapeType> getChoiceBoxShapeList() {
         return choiceBoxShapeList;
     }
-
-    public Deque<Shape> getShapeList() {
+    public ObservableList<Shape> getShapeList() {
         return shapeList;
     }
 
-    public void undo() {
-        if (tempList.isEmpty())
-            return;
-        tempList.removeLast();
-        shapeList = tempList;
+    public void addShapeToShapeList(ShapeParameter shapeParameter) {
+        getShapeList().add(shapeFactory.getShape(getShapeType(), shapeParameter));
     }
 
-    public void prepareDrawingList() {
-        tempList = shapeList;
+    public void undo() {
+        if (undoDeque.isEmpty())
+            return;
+/*        shapeList.clear();
+        for (Shape shape : undoList)
+            shapeList.add(shape.getDuplicate());*/
+        shapeList.clear();
+        shapeList.addAll(undoDeque.removeLast());
     }
+    public Deque<Shape> getTempList() {
+        Deque<Shape> tempList = new ArrayDeque<>();
+        for (Shape shape : shapeList)
+            tempList.add(shape.getDuplicate());
+        return tempList;
+    }
+    public void addToUndoList() {
+        undoDeque.addLast(getTempList());
+    }
+
 }
