@@ -1,6 +1,5 @@
 package se.iths;
 
-import javafx.collections.ListChangeListener;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -19,6 +18,7 @@ public class Controller {
     public static final int LEFT_EDGE = 0;
     public static final int MAX_WIDTH = 2000;
     public static final int MAX_HEIGHT = 1000;
+    public static final Color BACKGROUND_COLOR = Color.web("#edece0");
 
     Model model = new Model();
     ShapeFactory shapeFactory = new ShapeFactory();
@@ -45,7 +45,7 @@ public class Controller {
 
         sizeSpinner.getValueFactory().valueProperty().bindBidirectional(model.sizeProperty());
 
-        model.getShapeList().addListener((ListChangeListener<Shape>) change -> draw());
+        //model.getShapeList().addListener((ListChangeListener<Shape>) change -> draw());
 
         shapeType.setTooltip(new Tooltip("Test"));
         shapeType.hoverProperty().addListener(observable -> System.out.println("test"));
@@ -60,25 +60,28 @@ public class Controller {
     }
 
     public void canvasClicked(MouseEvent mouseEvent) {
-        double posX = mouseEvent.getX() - (model.getSize() >> 1);
-        double posY = mouseEvent.getY() - (model.getSize() >> 1);
-        if (mouseEvent.isControlDown() && mouseEvent.isShiftDown())
+        if (mouseEvent.isControlDown() && mouseEvent.isShiftDown()) {
             updateShape(mouseEvent);
-        else if (mouseEvent.isControlDown())
+        }
+        else if (mouseEvent.isControlDown()) {
             updateColor(mouseEvent);
-        else if (mouseEvent.isShiftDown())
+        }
+        else if (mouseEvent.isShiftDown()) {
             updateSize(mouseEvent);
+        }
         else {
+            double posX = mouseEvent.getX() - (model.getSize() >> 1);
+            double posY = mouseEvent.getY() - (model.getSize() >> 1);
 
             var shapeParameter = new ShapeParameter(posX, posY, model.getSize(), model.getColor());
 
-            model.addToUndoList();
+            model.addToUndoDeque();
+            model.getShapeList().add(shapeFactory.getShape(model.getShapeType(), shapeParameter));
+            }
 
-            model.addShapeToShapeList(shapeParameter);
-
-            draw();
+        draw();
         }
-    }
+
 
 
     private void draw() {
@@ -87,31 +90,35 @@ public class Controller {
     }
 
     private void preparePaintingArea() {
-        context.setFill(Color.web("#edece0"));
+        context.setFill(BACKGROUND_COLOR);
         context.fillRect(0, 0, MAX_WIDTH, MAX_HEIGHT);
     }
 
+
+
     public void undoClicked() {
         model.undo();
-        draw();
     }
 
     public void updateShape(MouseEvent mouseEvent) {
-        model.addToUndoList();
+        if (findShape(mouseEvent).isEmpty())
+            return;
+        model.addToUndoDeque();
         findShape(mouseEvent).ifPresent(shape -> shape.updateShape(model.getColor(), model.getSize()));
-        draw();
     }
 
     private void updateColor(MouseEvent mouseEvent) {
-        model.addToUndoList();
-        findShape(mouseEvent).ifPresent(shape -> shape.getDuplicate().setColor(model.getColor()));
-        draw();
+        if (findShape(mouseEvent).isEmpty())
+            return;
+        model.addToUndoDeque();
+        findShape(mouseEvent).ifPresent(shape -> shape.setColor(model.getColor()));
     }
 
     private void updateSize(MouseEvent mouseEvent) {
-        model.addToUndoList();
-        findShape(mouseEvent).ifPresent(shape -> shape.getDuplicate().setSize(model.getSize()));
-        draw();
+        if (findShape(mouseEvent).isEmpty())
+            return;
+        model.addToUndoDeque();
+        findShape(mouseEvent).ifPresent(shape -> shape.setSize(model.getSize()));
     }
 
     private Optional<Shape> findShape(MouseEvent mouseEvent) {

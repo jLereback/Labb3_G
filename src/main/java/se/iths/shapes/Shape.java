@@ -1,54 +1,66 @@
 package se.iths.shapes;
 
-import javafx.beans.Observable;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
-import java.util.function.Consumer;
-
 public abstract class Shape {
-    public ShapeParameter parameter;
+    private double posX;
+    private double posY;
+    private int size;
+    private Color color;
+
+
     public Shape(ShapeParameter parameter) {
-        this.parameter = parameter;
+        this.posX = parameter.getPosX();
+        this.posY = parameter.getPosY();
+        this.size = parameter.getSize();
+        this.color = parameter.getColor();
     }
-    public Shape(Shape shape) {
-        this.parameter = shape.parameter;
-    }
-    public abstract Shape getDuplicate();
 
     public abstract void draw(GraphicsContext context);
-    public Integer getSize() {
-        return this.parameter.getSize();
+
+    public abstract Shape getShapeDuplicate();
+    public ShapeParameter getDuplicate() {
+        return new ShapeParameter(getPosX(), getPosY(), getSize(), getColor());
     }
-    public Color getColor() {
-        return this.parameter.getColor();
+
+    public double getPosX() {
+        return posX;
     }
+
+    public void setPosX(double posX) {
+        this.posX = posX;
+    }
+
+    public double getPosY() {
+        return posY;
+    }
+
+    public void setPosY(double posY) {
+        this.posY = posY;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
     public void setSize(int size) {
-        this.parameter.setSize(size);
+        this.size = size;
     }
+
+    public Color getColor() {
+        return color;
+    }
+
     public void setColor(Color color) {
-        this.parameter.setColor(color);
+        this.color = color;
     }
+
     public void updateShape(Color color, int size){
         setColor(color);
         setSize(size);
-    }
-    public double getX() {
-        return parameter.getPosX();
-    }
-    public void setX(double X) {
-        this.parameter.setPosX(X);
-    }
-    public double getY() {
-        return parameter.getPosY();
-    }
-    public void setY(double Y) {
-        this.parameter.setPosY(Y);
     }
     public abstract Boolean isInside(double posX, double posY);
 
     public abstract ShapeType getType();
 }
-

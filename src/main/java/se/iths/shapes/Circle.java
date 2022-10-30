@@ -1,33 +1,28 @@
 package se.iths.shapes;
 
-import javafx.beans.property.ObjectProperty;
 import javafx.scene.canvas.GraphicsContext;
 
 public final class Circle extends Shape {
     public Circle(ShapeParameter parameter) {
         super(parameter);
     }
-    public Circle(Shape shape) {
-        super(shape);
-    }
-
     @Override
-    public Shape getDuplicate() {
-        return new Circle(this.parameter);
+    public Shape getShapeDuplicate() {
+        return new Circle(getDuplicate());
     }
 
     @Override
     public void draw(GraphicsContext context) {
         context.setFill(getColor());
-        context.fillOval(getX(), getY(), getSize(), getSize());
+        context.fillOval(getPosX(), getPosY(), getSize(), getSize());
     }
     private double getCircleRadius(){
         return getSize() >> 1;
     }
     @Override
     public Boolean isInside(double posX, double posY) {
-        double centerPointX = getX() + getCircleRadius();
-        double centerPointY = getY() + getCircleRadius();
+        double centerPointX = getPosX() + getCircleRadius();
+        double centerPointY = getPosY() + getCircleRadius();
 
         double distX = posX - centerPointX;
         double distY = posY - centerPointY;

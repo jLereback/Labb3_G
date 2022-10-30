@@ -1,6 +1,5 @@
 package se.iths;
 
-import javafx.beans.Observable;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,7 +10,6 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class Model {
-    private final ShapeFactory shapeFactory;
     ShapeType[] shapeNames = {ShapeType.CIRCLE, ShapeType.SQUARE};
     private final ObservableList<ShapeType> choiceBoxShapeList = FXCollections.observableArrayList(shapeNames);
     private final Deque<Deque<Shape>> undoDeque;
@@ -22,7 +20,6 @@ public class Model {
     public final ObjectProperty<ShapeType> shapeType;
     public final ObjectProperty<Shape> shape;
     public Model() {
-        this.shapeFactory = new ShapeFactory();
         //this.shapeList = new ArrayDeque<>();
         this.shapeList = FXCollections.observableArrayList();
         this.undoDeque = new ArrayDeque<>();
@@ -75,10 +72,6 @@ public class Model {
         return shapeList;
     }
 
-    public void addShapeToShapeList(ShapeParameter shapeParameter) {
-        getShapeList().add(shapeFactory.getShape(getShapeType(), shapeParameter));
-    }
-
     public void undo() {
         if (undoDeque.isEmpty())
             return;
@@ -91,11 +84,10 @@ public class Model {
     public Deque<Shape> getTempList() {
         Deque<Shape> tempList = new ArrayDeque<>();
         for (Shape shape : shapeList)
-            tempList.add(shape.getDuplicate());
+            tempList.add(shape.getShapeDuplicate());
         return tempList;
     }
-    public void addToUndoList() {
+    public void addToUndoDeque() {
         undoDeque.addLast(getTempList());
     }
-
 }
