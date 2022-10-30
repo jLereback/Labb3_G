@@ -6,9 +6,12 @@ import javafx.scene.control.*;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import se.iths.shapes.Shape;
 import se.iths.shapes.ShapeFactory;
 import se.iths.shapes.ShapeParameter;
 import se.iths.shapes.ShapeType;
+
+import java.util.Optional;
 
 public class Controller {
     public static final int TOP_EDGE = 0;
@@ -18,7 +21,6 @@ public class Controller {
 
     Model model = new Model();
     ShapeFactory shapeFactory = new ShapeFactory();
-
     public MenuBar menuBar;
     public ToolBar toolBar;
     public Spinner<Integer> sizeSpinner;
@@ -37,22 +39,23 @@ public class Controller {
 
         colorPicker.valueProperty().bindBidirectional(model.colorProperty());
 
-        shapeType.valueProperty().bindBidirectional(model.shapeProperty());
+        shapeType.valueProperty().bindBidirectional(model.shapeTypeProperty());
         shapeType.setItems(model.getChoiceBoxShapeList());
 
         sizeSpinner.getValueFactory().valueProperty().bindBidirectional(model.sizeProperty());
 
+        //model.getShapeList().addListener((ListChangeListener<Shape>) change -> draw());
 
         shapeType.setTooltip(new Tooltip("Test"));
         shapeType.hoverProperty().addListener(observable -> System.out.println("test"));
     }
 
     public void hoverShape(DragEvent dragEvent) {
-        model.getShapeList().stream()
+/*        model.getShapeList().stream()
                 .filter(shape -> shape.isInside(dragEvent.getX(), dragEvent.getY()))
                 .reduce((first, second) -> second)
                 .ifPresent(shape -> shape.updateShape(model.getColor(), model.getSize()));
-        draw();
+        draw();*/
     }
 
     public void canvasClicked(MouseEvent mouseEvent) {
@@ -68,13 +71,14 @@ public class Controller {
 
             var shapeParameter = new ShapeParameter(posX, posY, model.getSize(), model.getColor());
 
-            model.prepareDrawingList();
+            model.addToUndoList();
 
-            model.getShapeList().add(shapeFactory.getShape(shapeType.getValue(), shapeParameter));
+            model.addShapeToShapeList(shapeParameter);
 
             draw();
         }
     }
+
 
     private void draw() {
         preparePaintingArea();
@@ -92,32 +96,28 @@ public class Controller {
     }
 
     public void updateShape(MouseEvent mouseEvent) {
-        model.getShapeList().stream()
-                .filter(shape -> shape.isInside(mouseEvent.getX(), mouseEvent.getY()))
-                .reduce((first, second) -> second)
-                .ifPresent(shape -> shape.updateShape(model.getColor(), model.getSize()));
-        model.prepareDrawingList();
+        model.addToUndoList();
+        findShape(mouseEvent).ifPresent(shape -> shape.updateShape(model.getColor(), model.getSize()));
         draw();
     }
 
     private void updateColor(MouseEvent mouseEvent) {
-        model.getShapeList().stream()
-                .filter(shape -> shape.isInside(mouseEvent.getX(), mouseEvent.getY()))
-                .reduce((first, second) -> second)
-                .ifPresent(shape -> shape.setColor(model.getColor()));
-        model.prepareDrawingList();
+        model.addToUndoList();
+        findShape(mouseEvent).ifPresent(shape -> shape.setColor(model.getColor()));
         draw();
     }
 
     private void updateSize(MouseEvent mouseEvent) {
-        model.getShapeList().stream()
-                .filter(shape -> shape.isInside(mouseEvent.getX(), mouseEvent.getY()))
-                .reduce((first, second) -> second)
-                .ifPresent(shape -> shape.setSize(model.getSize()));
-        model.prepareDrawingList();
+        model.addToUndoList();
+        findShape(mouseEvent).ifPresent(shape -> shape.setSize(model.getSize()));
         draw();
     }
 
+    private Optional<Shape> findShape(MouseEvent mouseEvent) {
+        return model.getShapeList().stream()
+                .filter(shape -> shape.isInside(mouseEvent.getX(), mouseEvent.getY()))
+                .reduce((first, second) -> second);
+    }
     public void exit() {
         System.exit(0);
     }
