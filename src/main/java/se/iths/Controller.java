@@ -1,6 +1,5 @@
 package se.iths;
 
-import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -44,30 +43,34 @@ public class Controller {
         sizeSpinner.getValueFactory().valueProperty().bindBidirectional(model.sizeProperty());
 
 
+        shapeType.setTooltip(new Tooltip("Test"));
         shapeType.hoverProperty().addListener(observable -> System.out.println("test"));
     }
 
-/*    public void hoverShape(DragEvent dragEvent) {
+    public void hoverShape(DragEvent dragEvent) {
         model.getShapeList().stream()
                 .filter(shape -> shape.isInside(dragEvent.getX(), dragEvent.getY()))
                 .reduce((first, second) -> second)
                 .ifPresent(shape -> shape.updateShape(model.getColor(), model.getSize()));
-        context.getCanvas().getGraphicsContext2D();
         draw();
-    }*/
+    }
 
-        public void canvasClicked(MouseEvent mouseEvent) {
+    public void canvasClicked(MouseEvent mouseEvent) {
         double posX = mouseEvent.getX() - (model.getSize() >> 1);
         double posY = mouseEvent.getY() - (model.getSize() >> 1);
-        if (mouseEvent.isControlDown()) {
-            selectShape(mouseEvent);
-        } else {
+        if (mouseEvent.isControlDown() && mouseEvent.isShiftDown())
+            updateShape(mouseEvent);
+        else if (mouseEvent.isControlDown())
+            updateColor(mouseEvent);
+        else if (mouseEvent.isShiftDown())
+            updateSize(mouseEvent);
+        else {
 
             var shapeParameter = new ShapeParameter(posX, posY, model.getSize(), model.getColor());
 
             model.prepareDrawingList();
 
-            model.getShapeList().addLast(shapeFactory.getShape(shapeType.getValue(), shapeParameter));
+            model.getShapeList().add(shapeFactory.getShape(shapeType.getValue(), shapeParameter));
 
             draw();
         }
@@ -88,11 +91,30 @@ public class Controller {
         draw();
     }
 
-    public void selectShape(MouseEvent mouseEvent) {
+    public void updateShape(MouseEvent mouseEvent) {
         model.getShapeList().stream()
                 .filter(shape -> shape.isInside(mouseEvent.getX(), mouseEvent.getY()))
                 .reduce((first, second) -> second)
                 .ifPresent(shape -> shape.updateShape(model.getColor(), model.getSize()));
+        model.prepareDrawingList();
+        draw();
+    }
+
+    private void updateColor(MouseEvent mouseEvent) {
+        model.getShapeList().stream()
+                .filter(shape -> shape.isInside(mouseEvent.getX(), mouseEvent.getY()))
+                .reduce((first, second) -> second)
+                .ifPresent(shape -> shape.setColor(model.getColor()));
+        model.prepareDrawingList();
+        draw();
+    }
+
+    private void updateSize(MouseEvent mouseEvent) {
+        model.getShapeList().stream()
+                .filter(shape -> shape.isInside(mouseEvent.getX(), mouseEvent.getY()))
+                .reduce((first, second) -> second)
+                .ifPresent(shape -> shape.setSize(model.getSize()));
+        model.prepareDrawingList();
         draw();
     }
 
