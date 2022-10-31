@@ -1,6 +1,5 @@
 package se.iths;
 
-import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
@@ -16,7 +15,9 @@ import se.iths.svg.SVGWriter;
 import java.util.Optional;
 
 public class Controller {
-    final static KeyCombination SAVE_SHORTCUT = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
+    final static KeyCombination SAVE = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
+    final static KeyCombination UNDO = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN);
+    final static KeyCombination REDO = new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_DOWN);
 
     public static final int MAX_WIDTH = 2000;
     public static final int MAX_HEIGHT = 1000;
@@ -26,17 +27,15 @@ public class Controller {
     ShapeFactory shapeFactory = new ShapeFactory();
     SVGWriter svgWriter = new SVGWriter();
     ShapeParameter shapeParameter;
-    Stage stage;
-    public MenuBar menuBar;
-    public ToolBar toolBar;
+    public GraphicsContext context;
     public Spinner<Integer> sizeSpinner;
     public ChoiceBox<ShapeType> shapeType;
-    public Button buttonUndo;
-    public Button buttonRedo;
     public ColorPicker colorPicker;
     public Canvas paintingArea;
-
-    public GraphicsContext context;
+    public MenuItem menuUndo;
+    public MenuItem menuSave;
+    public MenuItem menuRedo;
+    private Stage stage;
 
 
     public void initialize() {
@@ -48,6 +47,10 @@ public class Controller {
         shapeType.setItems(model.getChoiceBoxShapeList());
 
         sizeSpinner.getValueFactory().valueProperty().bindBidirectional(model.sizeProperty());
+
+        menuRedo.setAccelerator(REDO);
+        menuUndo.setAccelerator(UNDO);
+        menuSave.setAccelerator(SAVE);
 
         preparePaintingArea();
     }
@@ -135,13 +138,12 @@ public class Controller {
         System.exit(0);
     }
 
-    public void printCommands(ActionEvent actionEvent) {
-
-
-    }
-
-    public void checkSave(KeyEvent keyEvent) {
-        if (SAVE_SHORTCUT.match(keyEvent))
+    public void checkShortcut(KeyEvent keyEvent) {
+        if (SAVE.match(keyEvent))
             save();
+        else if (UNDO.match(keyEvent))
+            undoClicked();
+        else if (REDO.match(keyEvent))
+            redoClicked();
     }
 }

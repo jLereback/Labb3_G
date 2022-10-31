@@ -1,12 +1,8 @@
 package se.iths;
 
-import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.annotation.Testable;
 import se.iths.shapes.*;
-
-import java.util.Deque;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static se.iths.shapes.ShapeType.*;
@@ -21,7 +17,6 @@ class ModelTest {
     int BIG_SIZE = 200;
 
     Model model = new Model();
-    Controller controller = new Controller();
     ShapeFactory shapeFactory = new ShapeFactory();
     ShapeParameter parameter1 = new ShapeParameter(125, 150, MEDIUM_SIZE, BLUE);
     ShapeParameter parameter2 = new ShapeParameter(125, 150, SMALL_SIZE, GRAY_GREEN);

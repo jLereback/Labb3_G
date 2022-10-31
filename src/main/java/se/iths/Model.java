@@ -7,7 +7,6 @@ import javafx.scene.paint.Color;
 import se.iths.shapes.*;
 
 import java.util.ArrayDeque;
-import java.util.Collection;
 import java.util.Deque;
 
 import static se.iths.shapes.ShapeType.*;

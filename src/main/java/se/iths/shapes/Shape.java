@@ -10,10 +10,10 @@ public abstract class Shape {
     private Color color;
 
     public Shape(ShapeParameter parameter) {
-        this.posX = parameter.getPosX();
-        this.posY = parameter.getPosY();
-        this.size = parameter.getSize();
-        this.color = parameter.getColor();
+        this.posX = parameter.posX();
+        this.posY = parameter.posY();
+        this.size = parameter.size();
+        this.color = parameter.color();
     }
 
     public abstract void draw(GraphicsContext context);

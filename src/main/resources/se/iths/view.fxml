@@ -14,34 +14,35 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="saveCommand" minHeight="300.0" minWidth="350.0" nodeOrientation="LEFT_TO_RIGHT" onKeyPressed="#checkSave" prefHeight="450.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.iths.Controller">
+<BorderPane minHeight="300.0" minWidth="350.0" nodeOrientation="LEFT_TO_RIGHT" onKeyPressed="#checkShortcut" prefHeight="450.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.iths.Controller">
     <top>
         <VBox prefHeight="52.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                <MenuBar fx:id="menuBar" maxHeight="25.0" minHeight="25.0" prefHeight="25.0" prefWidth="550.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <MenuBar maxHeight="25.0" minHeight="25.0" prefHeight="25.0" prefWidth="550.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <Menu text="File">
-                        <MenuItem onAction="#save" text="Save" />
+                        <MenuItem fx:id="menuSave" onAction="#save" text="Save" />
                         <MenuItem onAction="#exit" text="Close" />
                     </Menu>
                     <Menu text="Edit">
                         <MenuItem fx:id="menuUndo" onAction="#undoClicked" text="Undo" />
-                  <MenuItem fx:id="menuRedo" onAction="#redoClicked" text="Redo" />
+                        <MenuItem fx:id="menuRedo" onAction="#redoClicked" text="Redo" />
                     </Menu>
-                    <Menu text="Help">
-                        <MenuItem fx:id="menuCommands" onAction="#printCommands" text="Commands" />
+                    <Menu text="Command">
+                        <MenuItem disable="true" text="To set color, hold CTRL down and click on specific shape" />
+                        <MenuItem disable="true" text="To set size, hold SHIFT down and click on specific shape" />
                     </Menu>
                 </MenuBar>
             </AnchorPane>
-            <ToolBar fx:id="toolBar" maxHeight="35.0" minHeight="35.0" prefHeight="35.0" prefWidth="550.0">
-                <Spinner fx:id="sizeSpinner" amountToStepBy="1" editable="true" max="400" min="1" prefWidth="75.0" />
+            <ToolBar maxHeight="35.0" minHeight="35.0" prefHeight="35.0" prefWidth="550.0">
+                <Spinner fx:id="sizeSpinner" amountToStepBy="2" editable="true" max="400" min="1" prefWidth="75.0" />
                 <ChoiceBox fx:id="shapeType" prefWidth="100.0" />
                 <ColorPicker fx:id="colorPicker" prefWidth="100.0" />
-                <Button fx:id="buttonUndo" onAction="#undoClicked" text="Undo">
+                <Button onAction="#undoClicked" text="Undo">
                     <opaqueInsets>
                         <Insets />
                     </opaqueInsets>
                 </Button>
-                <Button fx:id="buttonRedo" onAction="#redoClicked" text="Redo">
+                <Button onAction="#redoClicked" text="Redo">
                     <opaqueInsets>
                         <Insets />
                     </opaqueInsets>

@@ -2,7 +2,6 @@ package se.iths.svg;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import se.iths.MainApplication;
 import se.iths.Model;
 
 import java.io.IOException;
