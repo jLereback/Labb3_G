@@ -2,6 +2,8 @@ package se.iths.shapes;
 
 import javafx.scene.canvas.GraphicsContext;
 
+import static se.iths.shapes.ShapeType.*;
+
 public final class Circle extends Shape {
     public Circle(ShapeParameter parameter) {
         super(parameter);
@@ -46,11 +48,6 @@ public final class Circle extends Shape {
 
     @Override
     public ShapeType getType() {
-        return ShapeType.CIRCLE;
-    }
-
-    @Override
-    public String toString() {
-        return "Circle";
+        return CIRCLE;
     }
 }

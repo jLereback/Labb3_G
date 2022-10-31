@@ -7,42 +7,30 @@ import javafx.scene.paint.Color;
 import se.iths.shapes.*;
 
 import java.util.ArrayDeque;
+import java.util.Collection;
 import java.util.Deque;
 
 import static se.iths.shapes.ShapeType.*;
 
 public class Model {
-    ShapeType[] shapeNames = ShapeType.values();
-    private final ObservableList<ShapeType> choiceBoxShapeList = FXCollections.observableArrayList(shapeNames);
+    ShapeType[] shapeNames;
+    private final ObservableList<ShapeType> choiceBoxShapeList;
     private final Deque<Deque<Shape>> undoDeque;
     private final Deque<Deque<Shape>> redoDeque;
-    //public Deque<Shape> shapeList;
     public ObservableList<Shape> shapeList;
     private final ObjectProperty<Integer> size;
     private final ObjectProperty<Color> color;
     public final ObjectProperty<ShapeType> shapeType;
-    public final ObjectProperty<Shape> shape;
+
     public Model() {
-        //this.shapeList = new ArrayDeque<>();
+        this.shapeNames = ShapeType.values();
+        this.choiceBoxShapeList = FXCollections.observableArrayList(shapeNames);
         this.shapeList = FXCollections.observableArrayList();
         this.undoDeque = new ArrayDeque<>();
         this.redoDeque = new ArrayDeque<>();
         this.color = new SimpleObjectProperty<>(Color.web("#004B87"));
         this.size = new SimpleObjectProperty<>(50);
-        this.shapeType = new SimpleObjectProperty<>();
-        this.shape = new SimpleObjectProperty<>();
-    }
-
-    public Shape getShape() {
-        return shape.get();
-    }
-
-    public ObjectProperty<Shape> shapeProperty() {
-        return shape;
-    }
-
-    public void setShape(Shape shape) {
-        this.shape.set(shape);
+        this.shapeType = new SimpleObjectProperty<>(CIRCLE);
     }
 
     public ObjectProperty<ShapeType> shapeTypeProperty() {
@@ -76,21 +64,13 @@ public class Model {
         return shapeList;
     }
 
-/*    public void undo() {
-        if (undoDeque.isEmpty())
-            return;
-        shapeList.clear();
-        shapeList.addAll(undoDeque.removeLast());
+    public Deque<Deque<Shape>> getUndoDeque() {
+        return undoDeque;
     }
-    public Deque<Shape> getTempList() {
-        Deque<Shape> tempList = new ArrayDeque<>();
-        for (Shape shape : shapeList)
-            tempList.add(shape.getShapeDuplicate());
-        return tempList;
+
+    public Deque<Deque<Shape>> getRedoDeque() {
+        return redoDeque;
     }
-    public void addToUndoDeque() {
-        undoDeque.addLast(getTempList());
-    }*/
 
     public void undo() {
         if (undoDeque.isEmpty())
@@ -124,5 +104,4 @@ public class Model {
     public void addToRedoDeque() {
         redoDeque.addLast(getTempList());
     }
-
 }

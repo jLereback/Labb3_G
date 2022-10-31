@@ -4,8 +4,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public abstract class Shape {
-    private double posX;
-    private double posY;
+    private final double posX;
+    private final double posY;
     private int size;
     private Color color;
 
@@ -23,21 +23,11 @@ public abstract class Shape {
     public ShapeParameter getDuplicate() {
         return new ShapeParameter(getPosX(), getPosY(), getSize(), getColor());
     }
-
     public double getPosX() {
         return posX;
     }
-
-    public void setPosX(double posX) {
-        this.posX = posX;
-    }
-
     public double getPosY() {
         return posY;
-    }
-
-    public void setPosY(double posY) {
-        this.posY = posY;
     }
 
     public int getSize() {

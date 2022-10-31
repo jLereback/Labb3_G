@@ -5,7 +5,6 @@ public class ShapeFactory {
         return switch (shapeType) {
             case CIRCLE -> new Circle(parameter);
             case SQUARE -> new Square(parameter);
-            //case HEPTAGON -> new Rectangle(parameter);
         };
     }
 }

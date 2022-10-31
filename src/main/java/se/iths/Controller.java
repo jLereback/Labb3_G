@@ -17,16 +17,15 @@ import se.iths.svg.SVG;
 import java.util.Optional;
 
 public class Controller {
-    public static final int TOP_EDGE = 0;
-    public static final int LEFT_EDGE = 0;
     public static final int MAX_WIDTH = 2000;
     public static final int MAX_HEIGHT = 1000;
     public static final Color BACKGROUND_COLOR = Color.web("#edece0");
 
     Model model = new Model();
     ShapeFactory shapeFactory = new ShapeFactory();
-    Stage stage = new Stage();
-    SVG svg = new SVG();
+    ShapeParameter shapeParameter;
+    Stage stage;
+    SVG svg;
     public MenuBar menuBar;
     public ToolBar toolBar;
     public Spinner<Integer> sizeSpinner;
@@ -37,7 +36,6 @@ public class Controller {
     public Canvas paintingArea;
 
     public GraphicsContext context;
-
 
 
     public void initialize() {
@@ -51,19 +49,6 @@ public class Controller {
         shapeType.setItems(model.getChoiceBoxShapeList());
 
         sizeSpinner.getValueFactory().valueProperty().bindBidirectional(model.sizeProperty());
-
-        //model.getShapeList().addListener((ListChangeListener<Shape>) change -> draw());
-
-        shapeType.setTooltip(new Tooltip("Test"));
-        shapeType.hoverProperty().addListener(observable -> System.out.println("test"));
-    }
-
-    public void hoverShape(DragEvent dragEvent) {
-/*        model.getShapeList().stream()
-                .filter(shape -> shape.isInside(dragEvent.getX(), dragEvent.getY()))
-                .reduce((first, second) -> second)
-                .ifPresent(shape -> shape.updateShape(model.getColor(), model.getSize()));
-        draw();*/
     }
 
     public void canvasClicked(MouseEvent mouseEvent) {
@@ -80,16 +65,13 @@ public class Controller {
             double posX = mouseEvent.getX() - (model.getSize() >> 1);
             double posY = mouseEvent.getY() - (model.getSize() >> 1);
 
-            var shapeParameter = new ShapeParameter(posX, posY, model.getSize(), model.getColor());
+            shapeParameter = new ShapeParameter(posX, posY, model.getSize(), model.getColor());
 
             model.addToUndoDeque();
             model.getShapeList().add(shapeFactory.getShape(model.getShapeType(), shapeParameter));
             }
-
         draw();
         }
-
-
 
     private void draw() {
         preparePaintingArea();
