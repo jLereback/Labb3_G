@@ -27,6 +27,7 @@ public class Controller {
     public Spinner<Integer> sizeSpinner;
     public ChoiceBox<ShapeType> shapeType;
     public Button buttonUndo;
+    public Button buttonRedo;
     public ColorPicker colorPicker;
     public Canvas paintingArea;
 
@@ -94,10 +95,14 @@ public class Controller {
         context.fillRect(0, 0, MAX_WIDTH, MAX_HEIGHT);
     }
 
-
-
     public void undoClicked() {
         model.undo();
+        draw();
+    }
+
+    public void redoClicked() {
+        model.redo();
+        draw();
     }
 
     public void updateShape(MouseEvent mouseEvent) {

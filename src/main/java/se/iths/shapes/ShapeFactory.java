@@ -1,13 +1,12 @@
 package se.iths.shapes;
 
-public class ShapeFactory {
+import static se.iths.shapes.ShapeType.*;
 
+public class ShapeFactory {
     public Shape getShape(ShapeType shapeType, ShapeParameter parameter) {
-        if (shapeType.equals(ShapeType.CIRCLE))
-            return new Circle(parameter);
-        else if (shapeType.equals(ShapeType.SQUARE))
-            return new Square(parameter);
-        else
-            return null;
+        return switch (shapeType) {
+            case CIRCLE -> new Circle(parameter);
+            case SQUARE -> new Square(parameter);
+        };
     }
 }

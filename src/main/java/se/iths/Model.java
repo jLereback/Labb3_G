@@ -9,10 +9,13 @@ import se.iths.shapes.*;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+import static se.iths.shapes.ShapeType.*;
+
 public class Model {
-    ShapeType[] shapeNames = {ShapeType.CIRCLE, ShapeType.SQUARE};
+    ShapeType[] shapeNames = {CIRCLE, SQUARE};
     private final ObservableList<ShapeType> choiceBoxShapeList = FXCollections.observableArrayList(shapeNames);
     private final Deque<Deque<Shape>> undoDeque;
+    private final Deque<Deque<Shape>> redoDeque;
     //public Deque<Shape> shapeList;
     public ObservableList<Shape> shapeList;
     private final ObjectProperty<Integer> size;
@@ -23,6 +26,7 @@ public class Model {
         //this.shapeList = new ArrayDeque<>();
         this.shapeList = FXCollections.observableArrayList();
         this.undoDeque = new ArrayDeque<>();
+        this.redoDeque = new ArrayDeque<>();
         this.color = new SimpleObjectProperty<>(Color.web("#004B87"));
         this.size = new SimpleObjectProperty<>(50);
         this.shapeType = new SimpleObjectProperty<>();
@@ -72,12 +76,9 @@ public class Model {
         return shapeList;
     }
 
-    public void undo() {
+/*    public void undo() {
         if (undoDeque.isEmpty())
             return;
-/*        shapeList.clear();
-        for (Shape shape : undoList)
-            shapeList.add(shape.getDuplicate());*/
         shapeList.clear();
         shapeList.addAll(undoDeque.removeLast());
     }
@@ -89,5 +90,39 @@ public class Model {
     }
     public void addToUndoDeque() {
         undoDeque.addLast(getTempList());
+    }*/
+
+    public void undo() {
+        if (undoDeque.isEmpty())
+            return;
+
+        addToRedoDeque();
+        shapeList.clear();
+        shapeList.addAll(undoDeque.removeLast());
     }
+
+    public void redo() {
+        if (redoDeque.isEmpty())
+            return;
+
+        addToUndoDeque();
+        shapeList.clear();
+        shapeList.addAll(redoDeque.removeLast());
+    }
+
+    public Deque<Shape> getTempList() {
+        Deque<Shape> tempList = new ArrayDeque<>();
+        for (Shape shape : shapeList)
+            tempList.add(shape.getShapeDuplicate());
+        return tempList;
+    }
+
+    public void addToUndoDeque() {
+        undoDeque.addLast(getTempList());
+    }
+
+    public void addToRedoDeque() {
+        redoDeque.addLast(getTempList());
+    }
+
 }

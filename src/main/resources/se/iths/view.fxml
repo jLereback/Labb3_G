@@ -39,6 +39,11 @@
                         <Insets />
                     </opaqueInsets>
                 </Button>
+                <Button fx:id="buttonRedo" onAction="#redoClicked" text="Redo">
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                </Button>
             </ToolBar>
         </VBox>
     </top>
