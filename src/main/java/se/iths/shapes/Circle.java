@@ -17,37 +17,34 @@ public final class Circle extends Shape {
     @Override
     public void draw(GraphicsContext context) {
         context.setFill(getColor());
-        context.fillOval(getPosX(), getPosY(), getSize(), getSize());
+        context.fillOval(getX() - getRadius(), getY() - getRadius(), getSize(), getSize());
     }
 
-    private double getCircleRadius() {
+    private double getRadius() {
         return getSize() >> 1;
     }
 
     @Override
     public Boolean isInside(double posX, double posY) {
-        double centerPointX = getPosX() + getCircleRadius();
-        double centerPointY = getPosY() + getCircleRadius();
-
-        double distX = posX - centerPointX;
-        double distY = posY - centerPointY;
+        double distX = posX - getX();
+        double distY = posY - getY();
 
         double distToCenter = Math.sqrt((distX * distX) + (distY * distY));
 
-        return distToCenter <= getCircleRadius();
-    }
-
-    @Override
-    public String drawSVG() {
-        String convertColor = "#" + getColor().toString().substring(2, 10);
-        return "<circle cx=\"" + getPosX() + "\" " +
-                "cy=\"" + getPosY() + "\" " +
-                "r=\"" + getSize() + "\" " +
-                "fill=\"" + convertColor + "\" />";
+        return distToCenter <= getRadius();
     }
 
     @Override
     public ShapeType getType() {
         return CIRCLE;
+    }
+
+    @Override
+    public String drawToSVGAsString() {
+        String convertColor = "#" + getColor().toString().substring(2, 10);
+        return "<circle cx=\"" + getX() + "\" " +
+                "cy=\"" + getY() + "\" " +
+                "r=\"" + getRadius() + "\" " +
+                "fill=\"" + convertColor + "\" />";
     }
 }

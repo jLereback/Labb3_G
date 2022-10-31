@@ -43,6 +43,7 @@ class ModelTest {
     @Test
     void getShapeReturnsNewShapeWithTheSameShapeTypeAsInput() {
         Shape shape = shapeFactory.getShape(model.getShapeType(), parameter1);
+
         ShapeType actual = shape.getType();
 
         assertEquals(CIRCLE, actual);
@@ -50,8 +51,9 @@ class ModelTest {
 
     @Test
     void setShapeTypeInModelShouldNotResultInChangedShapeTypeForTheShape() {
-        Shape shape = shapeFactory.getShape(model.getShapeType(), parameter1);
+        Shape shape = shapeFactory.getShape(model.getShapeType(), parameter2);
         model.setShapeType(SQUARE);
+
         ShapeType actual = shape.getType();
 
         assertEquals(CIRCLE, actual, "The type of a shape should not be able to be changed");

@@ -17,7 +17,7 @@ public final class Square extends Shape {
     @Override
     public void draw(GraphicsContext context) {
         context.setFill(getColor());
-        context.fillRect(getPosX(), getPosY(), getSize(), getSize());
+        context.fillRect(getX() - getHalfSideSize(), getY() - getHalfSideSize(), getSize(), getSize());
     }
 
     private double getHalfSideSize() {
@@ -26,26 +26,24 @@ public final class Square extends Shape {
 
     @Override
     public Boolean isInside(double posX, double posY) {
-        double centerPointX = getPosX() + getHalfSideSize();
-        double centerPointY = getPosY() + getHalfSideSize();
-
-        double distanceToX = Math.abs(posX - centerPointX);
-        double distanceToY = Math.abs(posY - centerPointY);
+        double distanceToX = Math.abs(posX - getX());
+        double distanceToY = Math.abs(posY - getY());
 
         return distanceToX <= getHalfSideSize() && distanceToY <= getHalfSideSize();
     }
 
     @Override
-    public String drawSVG() {
-        String convertColor = getColor().toString().substring(2, 10);
-        return "<circle cx=\"" + getPosX() + "\" " +
-                "cy=\"" + getPosY() + "\" " +
-                "r=\"" + getSize() + "\" " +
-                "fill=\"#" + convertColor + "\" />";
+    public ShapeType getType() {
+        return SQUARE;
     }
 
     @Override
-    public ShapeType getType() {
-        return SQUARE;
+    public String drawToSVGAsString() {
+        String convertColor = getColor().toString().substring(2, 10);
+        return "<rect x=\"" + (getX() - getHalfSideSize()) + "\" " +
+                "y=\"" + (getY() - getHalfSideSize()) + "\" " +
+                "width=\"" + getSize() + "\" " +
+                "height=\"" + getSize() + "\" " +
+                "fill=\"#" + convertColor + "\" />";
     }
 }

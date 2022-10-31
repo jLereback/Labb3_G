@@ -48,18 +48,23 @@ public class Model {
     public Property<Integer> sizeProperty() {
         return size;
     }
+
     public Integer getSize() {
         return size.get();
     }
+
     public ObjectProperty<Color> colorProperty() {
         return color;
     }
+
     public Color getColor() {
         return color.get();
     }
+
     public ObservableList<ShapeType> getChoiceBoxShapeList() {
         return choiceBoxShapeList;
     }
+
     public ObservableList<Shape> getShapeList() {
         return shapeList;
     }

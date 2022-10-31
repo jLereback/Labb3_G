@@ -9,7 +9,6 @@ public abstract class Shape {
     private int size;
     private Color color;
 
-
     public Shape(ShapeParameter parameter) {
         this.posX = parameter.getPosX();
         this.posY = parameter.getPosY();
@@ -20,13 +19,16 @@ public abstract class Shape {
     public abstract void draw(GraphicsContext context);
 
     public abstract Shape getShapeDuplicate();
+
     public ShapeParameter getDuplicate() {
-        return new ShapeParameter(getPosX(), getPosY(), getSize(), getColor());
+        return new ShapeParameter(getX(), getY(), getSize(), getColor());
     }
-    public double getPosX() {
+
+    public double getX() {
         return posX;
     }
-    public double getPosY() {
+
+    public double getY() {
         return posY;
     }
 
@@ -52,7 +54,7 @@ public abstract class Shape {
     }
     public abstract Boolean isInside(double posX, double posY);
 
-    public abstract String drawSVG();
-
     public abstract ShapeType getType();
+
+    public abstract String drawToSVGAsString();
 }
