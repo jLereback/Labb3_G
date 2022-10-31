@@ -62,5 +62,7 @@ public abstract class Shape {
     }
     public abstract Boolean isInside(double posX, double posY);
 
+    public abstract String drawSVG();
+
     public abstract ShapeType getType();
 }

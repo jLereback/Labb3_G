@@ -12,7 +12,7 @@ import java.util.Deque;
 import static se.iths.shapes.ShapeType.*;
 
 public class Model {
-    ShapeType[] shapeNames = {CIRCLE, SQUARE};
+    ShapeType[] shapeNames = ShapeType.values();
     private final ObservableList<ShapeType> choiceBoxShapeList = FXCollections.observableArrayList(shapeNames);
     private final Deque<Deque<Shape>> undoDeque;
     private final Deque<Deque<Shape>> redoDeque;

@@ -1,15 +1,18 @@
 package se.iths;
 
+import javafx.event.ActionEvent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import se.iths.shapes.Shape;
 import se.iths.shapes.ShapeFactory;
 import se.iths.shapes.ShapeParameter;
 import se.iths.shapes.ShapeType;
+import se.iths.svg.SVG;
 
 import java.util.Optional;
 
@@ -22,6 +25,8 @@ public class Controller {
 
     Model model = new Model();
     ShapeFactory shapeFactory = new ShapeFactory();
+    Stage stage = new Stage();
+    SVG svg = new SVG();
     public MenuBar menuBar;
     public ToolBar toolBar;
     public Spinner<Integer> sizeSpinner;
@@ -32,6 +37,7 @@ public class Controller {
     public Canvas paintingArea;
 
     public GraphicsContext context;
+
 
 
     public void initialize() {
@@ -131,6 +137,15 @@ public class Controller {
                 .filter(shape -> shape.isInside(mouseEvent.getX(), mouseEvent.getY()))
                 .reduce((first, second) -> second);
     }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public void save() {
+        svg.save(model, stage);
+    }
+
     public void exit() {
         System.exit(0);
     }

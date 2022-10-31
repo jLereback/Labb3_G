@@ -28,6 +28,15 @@ public final class Square extends Shape {
     }
 
     @Override
+    public String drawSVG() {
+        String convertColor = getColor().toString().substring(2, 10);
+        return "<circle cx=\"" + getPosX() + "\" " +
+                "cy=\"" + getPosY() + "\" " +
+                "r=\"" + getSize() + "\" " +
+                "fill=\"#" + convertColor + "\" />";
+    }
+
+    @Override
     public ShapeType getType() {
         return ShapeType.SQUARE;
     }

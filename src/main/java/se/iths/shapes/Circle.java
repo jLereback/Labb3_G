@@ -6,6 +6,7 @@ public final class Circle extends Shape {
     public Circle(ShapeParameter parameter) {
         super(parameter);
     }
+
     @Override
     public Shape getShapeDuplicate() {
         return new Circle(getDuplicate());
@@ -16,9 +17,11 @@ public final class Circle extends Shape {
         context.setFill(getColor());
         context.fillOval(getPosX(), getPosY(), getSize(), getSize());
     }
-    private double getCircleRadius(){
+
+    private double getCircleRadius() {
         return getSize() >> 1;
     }
+
     @Override
     public Boolean isInside(double posX, double posY) {
         double centerPointX = getPosX() + getCircleRadius();
@@ -30,6 +33,15 @@ public final class Circle extends Shape {
         double distToCenter = Math.sqrt((distX * distX) + (distY * distY));
 
         return distToCenter <= getCircleRadius();
+    }
+
+    @Override
+    public String drawSVG() {
+        String convertColor = "#" + getColor().toString().substring(2, 10);
+        return "<circle cx=\"" + getPosX() + "\" " +
+                "cy=\"" + getPosY() + "\" " +
+                "r=\"" + getSize() + "\" " +
+                "fill=\"" + convertColor + "\" />";
     }
 
     @Override
