@@ -22,7 +22,7 @@ public class Model {
 
     public Model() {
         this.shapeNames = ShapeType.values();
-        this.choiceBoxShapeList = FXCollections.observableArrayList(shapeNames);
+        this.choiceBoxShapeList = FXCollections.observableArrayList(ShapeType.values());
         this.shapeList = FXCollections.observableArrayList();
         this.undoDeque = new ArrayDeque<>();
         this.redoDeque = new ArrayDeque<>();

@@ -137,13 +137,4 @@ public class Controller {
     public void exit() {
         System.exit(0);
     }
-
-    public void checkShortcut(KeyEvent keyEvent) {
-        if (SAVE.match(keyEvent))
-            save();
-        else if (UNDO.match(keyEvent))
-            undoClicked();
-        else if (REDO.match(keyEvent))
-            redoClicked();
-    }
 }
