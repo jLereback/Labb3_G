@@ -1,4 +1,4 @@
-package se.iths.shapes;
+package se.iths.labb3.shapes;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;

@@ -1,11 +1,11 @@
-package se.iths;
+package se.iths.labb3;
 
 import javafx.scene.paint.Color;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import se.iths.shapes.*;
+import se.iths.labb3.shapes.*;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static se.iths.shapes.ShapeType.*;
 
 class ModelTest {
     Color GRAY_GREEN = Color.web("#63967a");
@@ -41,17 +41,17 @@ class ModelTest {
 
         ShapeType actual = shape.getType();
 
-        assertEquals(CIRCLE, actual);
+        Assertions.assertEquals(ShapeType.CIRCLE, actual);
     }
 
     @Test
     void setShapeTypeInModelShouldNotResultInChangedShapeTypeForTheShape() {
         Shape shape = shapeFactory.getShape(model.getShapeType(), parameter2);
-        model.setShapeType(SQUARE);
+        model.setShapeType(ShapeType.SQUARE);
 
         ShapeType actual = shape.getType();
 
-        assertEquals(CIRCLE, actual, "The type of a shape should not be able to be changed");
+        Assertions.assertEquals(ShapeType.CIRCLE, actual, "The type of a shape should not be able to be changed");
     }
 
     @Test

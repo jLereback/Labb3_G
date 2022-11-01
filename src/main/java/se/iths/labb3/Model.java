@@ -1,15 +1,14 @@
-package se.iths;
+package se.iths.labb3;
 
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
-import se.iths.shapes.*;
+import se.iths.labb3.shapes.Shape;
+import se.iths.labb3.shapes.ShapeType;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-
-import static se.iths.shapes.ShapeType.*;
 
 public class Model {
     ShapeType[] shapeNames;
@@ -29,7 +28,7 @@ public class Model {
         this.redoDeque = new ArrayDeque<>();
         this.color = new SimpleObjectProperty<>(Color.web("#004B87"));
         this.size = new SimpleObjectProperty<>(50);
-        this.shapeType = new SimpleObjectProperty<>(CIRCLE);
+        this.shapeType = new SimpleObjectProperty<>(ShapeType.CIRCLE);
     }
 
     public ObjectProperty<ShapeType> shapeTypeProperty() {

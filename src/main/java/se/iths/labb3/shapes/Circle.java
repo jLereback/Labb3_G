@@ -1,8 +1,8 @@
-package se.iths.shapes;
+package se.iths.labb3.shapes;
 
 import javafx.scene.canvas.GraphicsContext;
 
-import static se.iths.shapes.ShapeType.*;
+import static se.iths.labb3.shapes.ShapeType.*;
 
 public final class Circle extends Shape {
     public Circle(ShapeParameter parameter) {

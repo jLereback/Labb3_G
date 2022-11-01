@@ -1,4 +1,4 @@
-package se.iths;
+package se.iths.labb3;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -6,11 +6,11 @@ import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import se.iths.shapes.Shape;
-import se.iths.shapes.ShapeFactory;
-import se.iths.shapes.ShapeParameter;
-import se.iths.shapes.ShapeType;
-import se.iths.svg.SVGWriter;
+import se.iths.labb3.shapes.Shape;
+import se.iths.labb3.shapes.ShapeFactory;
+import se.iths.labb3.shapes.ShapeParameter;
+import se.iths.labb3.shapes.ShapeType;
+import se.iths.labb3.svg.SVGWriter;
 
 import java.util.Optional;
 
