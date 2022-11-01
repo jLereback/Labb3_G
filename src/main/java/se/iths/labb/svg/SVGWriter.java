@@ -1,8 +1,8 @@
-package se.iths.labb3.svg;
+package se.iths.labb.svg;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import se.iths.labb3.Model;
+import se.iths.labb.Model;
 
 import java.io.IOException;
 import java.nio.file.Files;

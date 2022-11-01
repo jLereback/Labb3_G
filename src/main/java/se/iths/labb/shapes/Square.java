@@ -1,8 +1,8 @@
-package se.iths.labb3.shapes;
+package se.iths.labb.shapes;
 
 import javafx.scene.canvas.GraphicsContext;
 
-import static se.iths.labb3.shapes.ShapeType.*;
+import static se.iths.labb.shapes.ShapeType.*;
 
 public final class Square extends Shape {
     public Square(ShapeParameter parameter) {

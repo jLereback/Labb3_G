@@ -1,4 +1,4 @@
-package se.iths.labb3.shapes;
+package se.iths.labb.shapes;
 
 public enum ShapeType {
     CIRCLE, SQUARE

@@ -1,9 +1,9 @@
-package se.iths.labb3;
+package se.iths.labb;
 
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import se.iths.labb3.shapes.*;
+import se.iths.labb.shapes.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 

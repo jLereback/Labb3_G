@@ -1,4 +1,4 @@
-package se.iths.labb3;
+package se.iths.labb;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

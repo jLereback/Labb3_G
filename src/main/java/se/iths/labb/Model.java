@@ -1,11 +1,11 @@
-package se.iths.labb3;
+package se.iths.labb;
 
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.paint.Color;
-import se.iths.labb3.shapes.Shape;
-import se.iths.labb3.shapes.ShapeType;
+import se.iths.labb.shapes.Shape;
+import se.iths.labb.shapes.ShapeType;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

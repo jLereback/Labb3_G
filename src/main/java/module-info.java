@@ -1,11 +1,11 @@
-module se.iths.labb3 {
+module se.iths.labb {
     requires javafx.controls;
     requires javafx.fxml;
 
 
-    opens se.iths.labb3 to javafx.fxml;
-    exports se.iths.labb3;
+    opens se.iths.labb to javafx.fxml;
+    exports se.iths.labb;
 
-    opens se.iths.labb3.shapes to javafx.fxml;
-    exports se.iths.labb3.shapes;
+    opens se.iths.labb.shapes to javafx.fxml;
+    exports se.iths.labb.shapes;
 }
